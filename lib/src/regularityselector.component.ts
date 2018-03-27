@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-regularityselector',
@@ -24,21 +24,32 @@ export class RegularitySelectorComponent {
   // например value: number[] = [2, 5, 18, 34]; 
   @Input() set value(value: number[]) {
     
-    value.forEach( value => {
+    if (Array.isArray(value)) {
+
+      value.forEach( value => {
+        
+        if (1 < value && value < 9)
+          this.selected_week_days[value - (1 +1)] = true;
+        if (9 < value && value < 41)
+          this.selected_month_days[value - (9 +0)] = true;
+        
+        // чтобы смотреть лог
+        //if (1 < value && value < 9)
+        //  console.log("found", value, "set", value - (1 +1));
+        //if (9 < value && value < 41)
+        //  console.log("found", value, "set", value - (9 +1));
+        
+      })
+
+    }
+    else {
+      this.selected_week_days = [];
+      this.selected_month_days = [];
+    }
       
-      if (1 < value && value < 9)
-        this.selected_week_days[value - (1 +1)] = true;
-      if (9 < value && value < 41)
-        this.selected_month_days[value - (9 +0)] = true;
-      
-      // чтобы смотреть лог
-      //if (1 < value && value < 9)
-      //  console.log("found", value, "set", value - (1 +1));
-      //if (9 < value && value < 41)
-      //  console.log("found", value, "set", value - (9 +1));
-      
-    })
+    
   }
+  
   @Output() valueChange: EventEmitter<number[]> = new EventEmitter<number[]>();
 
   get value(): number[] {
@@ -61,6 +72,12 @@ export class RegularitySelectorComponent {
     //})
 
     return result;
+  }
+
+  @Output() onMouseLeave: EventEmitter<number[]> = new EventEmitter<number[]>();
+
+  @HostListener("mouseleave") _onMouseLeave() {
+    this.onMouseLeave.emit(this.value);
   }
 
   isSelectedWeekDay(day: number): boolean {

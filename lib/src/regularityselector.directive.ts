@@ -52,7 +52,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   // <our-component [(size)]="sizeValue"></our-component>
   // <our-component [size]="sizeValue" (sizeChange)="sizeValue=$event"></our-component>
 
-  weekDaysNamesShort: Array<string> = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+  weekDaysNamesShort: Array<string> = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
   _value: number[];
   //_name: string;
@@ -62,17 +62,24 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   //}
 
   @Input() set value(value: number[]) {
-    console.log ("set value("+value.toLocaleString()+")");    
+    //console.log ("set value("+value.toLocaleString()+")");    
     if (this._value != value) {
       this._value = value;                                          // запишем во внутреннюю переменную
-      this.elem.nativeElement.value = "          "; // отрисуем значение в представлении
-      this._value.forEach( value => {
-        if (1 < value && value < 9)
-        this.elem.nativeElement.value += this.weekDaysNamesShort[value - (1 +1)]+', ';
-        if (9 < value && value < 41)
-          this.elem.nativeElement.value += (value-(9 +0))+', ';
-        }
-      );
+      if (Array.isArray(value)) {
+        this.elem.nativeElement.value = "          "; // отрисуем значение в представлении
+        let isStart = true;
+        this._value.forEach( value => {
+          if (isStart) isStart=false;
+          else         this.elem.nativeElement.value += ', ';
+          if (1 < value && value < 9)
+            this.elem.nativeElement.value += this.weekDaysNamesShort[value - (1 +1)];
+          if (9 < value && value < 41)
+            this.elem.nativeElement.value += (value-(9 +0));
+          }
+        );
+      }
+      else
+        this.elem.nativeElement.value = "";
       this.valueChange.emit(this._value);                           // вызовим событие изменения для двухстороннего связывания [(value)]
       //this.input.emit(this._value);                               // вызовим событие изменения как стандартный input (input)
     }
@@ -85,7 +92,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   //@Output() input:       EventEmitter<Date> = new EventEmitter<Date>();
   // поэтому для reactiveForms вставим getter, возвращающий значение:
   get value () {
-    console.log ("writeValue() => "+this._value.toLocaleString());
+    //console.log ("writeValue() => "+this._value.toLocaleString());
     return this._value
   };
 
@@ -139,7 +146,14 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
     // подпишемся на событие завершения выбора даты
     this.calendarRef.instance.valueChange.subscribe(
       ( event: number[] ) => {
-        console.log ("valueChange => "+event.toLocaleString());
+        //console.log ("valueChange => "+event.toLocaleString());
+        this.value = event;
+      }
+    )
+
+    this.calendarRef.instance.onMouseLeave.subscribe(
+      ( event: number[] ) => {
+        //console.log ("onMouseLeave => "+event.toLocaleString());
         this.value = event;
         this.calendarRef.destroy();
         this.calendarRef = null;
@@ -151,7 +165,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   // ниже реализация интерфейса ControlValueAccessor
 
   writeValue(date: number[]): void {
-    console.log ("writeValue("+date.toLocaleString()+")");
+    //console.log ("writeValue("+date.toLocaleString()+")");
     this.value = date;
   }
 
