@@ -1,0 +1,83 @@
+
+<br/>
+
+<table>
+  <tr><td>
+
+    <p>Встраивание через директиву ngx-regularityselector</p>
+    <p>Значение {{myControl1.value.toLocaleString()}}</p>
+    <p>Emit {{comment1}}</p>
+    <fieldset>
+        <legend>ЛОгическая группа полей</legend>
+
+    <div class="b3-field-series">
+        <div class="b3-input-group">
+
+    <div class="b3-schedule">
+      <label class="b3-input-group__label b3-input-group__label--static">Выбор дней вызова</label>
+      <span class="icon icon_calendar-empty"></span>
+      <input ngx-regularityselector class="b3-input-group__field"
+      [name]="field_key"
+      [formControl]="myControl1"
+      [id]="field_key"
+      (keyup)="checkEmit('keyup')"
+      (focus)="checkEmit('focus')"
+      (focusout)="checkEmit('focusout')"
+      >
+      <!--
+      <div class="b3-schedule__content" style="display:block">
+        <app-regularityselector [(value)]="value1"></app-regularityselector>
+      </div>
+      -->
+    </div>
+  </div>
+</div>
+</fieldset>
+<!--
+    <br/>
+    <p>Встраивание через директиву ngx-datepicker</p>
+    <div class="b3-ws-header__date">
+      <div class="b3-datepicker undefined">
+        <div class="b3-input-group">
+          <label class="b3-input-group__label b3-input-group__label--static">Планируемая дата</label>
+          <div class="b3-nowrap"><span class="icon icon_calendar-full"></span>
+            <input ngx-datepicker class="b3-input-group__field" [formControl]="myControl2">
+          </div>
+        </div>
+      </div>
+      <div class="b3-arrow-dd"></div>
+    </div>
+    <br/>
+    <button type="button" (click)="setDate2()">Set Today</button>
+    <p>Значение {{myControl2.value.toLocaleDateString()}}</p>
+
+    <br/>
+    <p>Встраивание как компонента app-datepicker-input</p>
+    <div class="b3-ws-header__date">
+      <div class="b3-datepicker undefined">
+        <div class="b3-input-group">
+          <label class="b3-input-group__label b3-input-group__label--static">Планируемая дата</label>
+          <div class="b3-nowrap"><span class="icon icon_calendar-full"></span>
+            <app-datepicker-input class="b3-input-group__field" [formControl]="myControl3"></app-datepicker-input>
+          </div>
+        </div>
+      </div>
+      <div class="b3-arrow-dd"></div>
+    </div>
+    <br/>
+    <button type="button" (click)="setDate3()">Set Today</button>
+    <p>Значение {{myControl3.value.toLocaleDateString()}}</p>
+  -->
+
+  </td>
+  <td width="200"></td>
+  <td valign="top">
+<!--
+    <p>Работа с компонентом app-regularityselector напрямую</p>
+    <div class="b3-schedule__content" style="display:block">
+      <app-regularityselector [(value)]="value1"></app-regularityselector>
+    </div>
+    <p>{{value1.toLocaleString()}}</p>
+  -->
+  </td></tr>
+</table>

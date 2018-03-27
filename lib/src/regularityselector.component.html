@@ -1,0 +1,35 @@
+
+<!-- https://metanit.com/web/angular2/3.5.php - Структурные директивы ngIf, ngFor, ngSwitch -->
+<!-- https://www.concretepage.com/angular-2/angular-2-ngswitch-example - Angular 2 NgSwitch Example -->
+<div class="b3-schedule__content" style="display:block">
+  <div class="b3-calendar">
+    <div class="b3-calendar__content">
+      <table class="b3-calendar__table-month">
+        <thead>
+          <tr class="b3-calendar__caption"> 
+            <th colspan="7">Дни недели</th>
+          </tr>
+          <tr class="b3-calendar__table-month__weekdays">
+            <th *ngFor="let day of weekDaysNamesShort; index as col" class="b3-calendar__weekday"
+                (click)="changeSelectedWeekDay(col)"
+                [ngClass]="{'b3-calendar__day_selected': isSelectedWeekDay(col)}" >
+              <span>{{day}}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="b3-calendar__caption"> 
+            <td colspan="7">Дни месяца</td>
+          </tr>
+          <tr  *ngFor="let line of month_days_matrix; index as row">
+            <td *ngFor="let day of month_days_matrix[row]; index as col" class="b3-calendar__day"
+                (click)="changeSelectedMonthDay(day)"
+                [ngClass]="{'b3-calendar__day_selected': isSelectedMonthDay(day)}" >
+              <span *ngIf="isValidMonthDay(day)">{{day}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
