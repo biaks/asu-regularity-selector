@@ -62,7 +62,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   //}
 
   @Input() set value(value: number[]) {
-    //console.log ("set value("+value.toLocaleString()+")");    
+//    console.log ("regularityselector::set value("+value.toLocaleString()+")");    
     if (this._value != value) {
       this._value = value;                                          // запишем во внутреннюю переменную
       if (Array.isArray(value)) {
@@ -80,6 +80,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
       }
       else
         this.elem.nativeElement.value = "";
+      this.onChangeCallback(this._value);                               // вызовим событие изменения для reactiveForms
       this.valueChange.emit(this._value);                           // вызовим событие изменения для двухстороннего связывания [(value)]
       //this.input.emit(this._value);                               // вызовим событие изменения как стандартный input (input)
     }
@@ -92,7 +93,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   //@Output() input:       EventEmitter<Date> = new EventEmitter<Date>();
   // поэтому для reactiveForms вставим getter, возвращающий значение:
   get value () {
-    //console.log ("writeValue() => "+this._value.toLocaleString());
+  //  console.log ("regularityselector::get value => "+this._value.toLocaleString());
     return this._value
   };
 
@@ -109,6 +110,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   // ниже отображение календаря (компонент DatepickerComponent)
 
   @HostListener("click") onMouseClick() {
+  //  console.log ("regularityselector::onMouseClick()");
     if (this.calendarRef == null)
       this.showCalendar();
   }
@@ -146,14 +148,14 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
     // подпишемся на событие завершения выбора даты
     this.calendarRef.instance.valueChange.subscribe(
       ( event: number[] ) => {
-        //console.log ("valueChange => "+event.toLocaleString());
+    //    console.log ("regularityselector::valueChange => "+event.toLocaleString());
         this.value = event;
       }
     )
 
     this.calendarRef.instance.onMouseLeave.subscribe(
       ( event: number[] ) => {
-        //console.log ("onMouseLeave => "+event.toLocaleString());
+    //    console.log ("regularityselector::onMouseLeave => "+event.toLocaleString());
         this.value = event;
         this.calendarRef.destroy();
         this.calendarRef = null;
@@ -165,7 +167,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
   // ниже реализация интерфейса ControlValueAccessor
 
   writeValue(date: number[]): void {
-    //console.log ("writeValue("+date.toLocaleString()+")");
+  //  console.log ("regularityselector::writeValue("+date.toLocaleString()+")");
     this.value = date;
   }
 
