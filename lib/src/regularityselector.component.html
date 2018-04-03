@@ -9,18 +9,18 @@
         <thead>
           <tr class="b3-calendar__table-month__nthdays">
             <th class="b3-calendar__nthday"
-                [ngClass]="{'b3-calendar__day_selected': allEvenDaysIsSelected()}"
-                (click)="torgeEvenDays()">
+                [ngClass]="{'b3-calendar__day_selected': even_is_selected}"
+                (click)="setEvenDays()">
               <span>По четным</span>
             </th>
             <th class="b3-calendar__nthday"
-                [ngClass]="{'b3-calendar__day_selected': allOddDaysIsSelected()}"
-                (click)="torgeOddDays()">
-              <span>По не четным</span>
+                [ngClass]="{'b3-calendar__day_selected': odd_is_selected}"
+                (click)="setOddDays()">
+              <span>По нечетным</span>
             </th>
             <th class="b3-calendar__nthday"
-                [ngClass]="{'b3-calendar__day_selected': allMonthDaysIsUnselected()}"
-                (click)="unselectAllMonthDays()">
+                [ngClass]="{'b3-calendar__day_selected': isEveryDaySelected()}"
+                (click)="setEveryDays()">
               <span>Ежедневно</span>
             </th>
           </tr>
