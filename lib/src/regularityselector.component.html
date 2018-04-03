@@ -4,6 +4,29 @@
 <div class="b3-schedule__content" style="display:block">
   <div class="b3-calendar">
     <div class="b3-calendar__content">
+
+      <table class="b3-calendar__table-month">
+        <thead>
+          <tr class="b3-calendar__table-month__nthdays">
+            <th class="b3-calendar__nthday"
+                [ngClass]="{'b3-calendar__day_selected': allEvenDaysIsSelected()}"
+                (click)="torgeEvenDays()">
+              <span>По четным</span>
+            </th>
+            <th class="b3-calendar__nthday"
+                [ngClass]="{'b3-calendar__day_selected': allOddDaysIsSelected()}"
+                (click)="torgeOddDays()">
+              <span>По не четным</span>
+            </th>
+            <th class="b3-calendar__nthday"
+                [ngClass]="{'b3-calendar__day_selected': allMonthDaysIsUnselected()}"
+                (click)="unselectAllMonthDays()">
+              <span>Ежедневно</span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+
       <table class="b3-calendar__table-month">
         <thead>
           <tr class="b3-calendar__caption"> 

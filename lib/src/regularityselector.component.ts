@@ -80,6 +80,78 @@ export class RegularitySelectorComponent {
     this.onMouseLeave.emit(this.value);
   }
 
+  // even - четные
+  allEvenDaysIsSelected(): boolean {
+    for (let i=2; i<=30; i+=2)
+      if (this.selected_month_days[i] != true)
+        return false;
+    return true;
+  }
+  allEvenDaysIsUnselected(): boolean {
+    for (let i=2; i<=30; i+=2)
+      if (this.selected_month_days[i] == true)
+        return false;
+    return true;
+  }
+  torgeEvenDays() {
+    if (this.allEvenDaysIsSelected())
+      this.unselectAllEvenDays();
+    else {
+      this.unselectAllOddDays();
+      this.selectAllEvenDays();
+    }
+  }
+  selectAllEvenDays() {
+    for (let i=2; i<=30; i+=2)
+      this.selected_month_days[i] = true;
+    this.valueChange.emit(this.value);
+  }
+  unselectAllEvenDays() {
+    for (let i=2; i<=30; i+=2)
+      delete this.selected_month_days[i];
+    this.valueChange.emit(this.value);
+  }
+
+  // odd - нечетные
+  allOddDaysIsSelected(): boolean {
+    for (let i=1; i<=31; i+=2)
+      if (this.selected_month_days[i] != true)
+        return false;
+    return true;
+  }
+  allOddDaysIsUnselected(): boolean {
+    for (let i=1; i<=31; i+=2)
+      if (this.selected_month_days[i] == true)
+        return false;
+    return true;
+  }
+  torgeOddDays() {
+    if (this.allOddDaysIsSelected())
+      this.unselectAllOddDays();
+    else {
+      this.unselectAllEvenDays();
+      this.selectAllOddDays();
+    }
+  }
+  selectAllOddDays() {
+    for (let i=1; i<=31; i+=2)
+      this.selected_month_days[i] = true;
+    this.valueChange.emit(this.value);
+  }
+  unselectAllOddDays() {
+    for (let i=1; i<=31; i+=2)
+      delete this.selected_month_days[i];
+    this.valueChange.emit(this.value);
+  }
+
+  unselectAllMonthDays() {
+    this.unselectAllEvenDays();
+    this.unselectAllOddDays();
+  }
+  allMonthDaysIsUnselected(): boolean {
+    return this.allEvenDaysIsUnselected() && this.allOddDaysIsUnselected();
+  }
+
   isSelectedWeekDay(day: number): boolean {
     return (this.selected_week_days[day] == true);
   }
