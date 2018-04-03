@@ -75,8 +75,13 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
             this.elem.nativeElement.value += this.weekDaysNamesShort[value - (1 +1)];
           if (9 < value && value < 41)
             this.elem.nativeElement.value += (value-(9 +0));
-          }
-        );
+          if (value == 41)
+            this.elem.nativeElement.value += "ПО ЧЁТНЫМ";
+          if (value == 42)
+            this.elem.nativeElement.value += "ПО НЕЧЁТНЫМ";
+        });
+        if (this.elem.nativeElement.value == "          ")
+          this.elem.nativeElement.value += "ЕЖЕДНЕВНО";
       }
       else
         this.elem.nativeElement.value = "";
