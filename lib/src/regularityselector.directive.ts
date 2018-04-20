@@ -66,7 +66,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
     if (this._value != value) {
       this._value = value;                                          // запишем во внутреннюю переменную
       if (Array.isArray(value)) {
-        this.elem.nativeElement.value = "          "; // отрисуем значение в представлении
+        this.elem.nativeElement.value = ""; // отрисуем значение в представлении
         let isStart = true;
         this._value.forEach( value => {
           if (isStart) isStart=false;
@@ -80,7 +80,7 @@ export class RegularitySelectorDirective implements ControlValueAccessor {
           if (value == 42)
             this.elem.nativeElement.value += "ПО НЕЧЁТНЫМ";
         });
-        if (this.elem.nativeElement.value == "          ")
+        if (this.elem.nativeElement.value == "")
           this.elem.nativeElement.value += "ЕЖЕДНЕВНО";
       }
       else
